@@ -1,3 +1,5 @@
+import { Sitting, Running } from './payerStates.js';
+
 export class Player {
   constructor(game) {
     this.game = game;
@@ -16,10 +18,13 @@ export class Player {
     this.maxSpeed = 10;
     this.vy = 0;
     this.weight = 1;
+    this.states =[new Sitting(this), new Running(this)];
+    this.currentState = this.states[0];
+    this.currentState.enter();
   }
 
   draw(context) {
-    context.drawImage(this.image, 0, 0, this.width, this.height, this.x, this.y, this.width, this.height);
+    context.drawImage(this.image, this.frameX * this.width, this.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
   }
 
   update(input) {
@@ -54,5 +59,10 @@ export class Player {
   }
   onGround() {
     return this.y >= this.game.height - this.height;
+  }
+
+  setState(state) {
+    this.currentState = this.states[state];
+    this.currentState.enter();
   }
 }
