@@ -1,6 +1,6 @@
 import {Player} from './player.js';
 import {InputHandler} from './input.js';
-
+import {Background} from './background.js';
 window.addEventListener('load', () => {
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
@@ -12,16 +12,21 @@ window.addEventListener('load', () => {
       this.width = width;
       this.height = height;
       //questo servirà a tener conto del terreno di gioco
-      this.groundMargin = 50;
+      this.groundMargin = 80;
+      this.speed = 0;
+      this.maxSpeed = 4;
+      this.background = new Background(this);
       this.player = new Player(this);
       this.input = new InputHandler();
     }
 
     draw(context){
+      this.background.draw(context);
       this.player.draw(context);
     }
 
     update(deltaTime){
+      this.background.update();
       this.player.update(this.input.keys, deltaTime);
     }
   }
