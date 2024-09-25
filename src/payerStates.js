@@ -28,7 +28,7 @@ export class Sitting extends State {
 
   handleInput(input) {
     if (input.includes('ArrowLeft') || input.includes('ArrowRight')) {
-      this.player.setState(states.RUNNING, 1.2);
+      this.player.setState(states.RUNNING, 1);
     }  
   }
 }
@@ -51,7 +51,7 @@ export class Running extends State{
     if (input.includes('ArrowDown')) {
       this.player.setState(states.SITTING, 0);
     }else if (input.includes('ArrowUp')){
-      this.player.setState(states.JUMPING, 1.2);
+      this.player.setState(states.JUMPING, 1);
     }
   }  
 }
@@ -74,7 +74,7 @@ export class Jumping extends State{
   handleInput(input) {
     //quando è alla massima estensione di vy, il player cambia stato in falling
     if (this.player.vy > this.player.weight) {
-      this.player.setState(states.FALLING, 1.2);
+      this.player.setState(states.FALLING, 1);
       
     }
   }
@@ -96,7 +96,7 @@ export class Falling extends State{
     //quando il player cade e tocca il suolo, il suo stato cambia in running
     //perchè il player deve tornare ad essere in grado di muoversi
     if (this.player.onGround()) {
-      this.player.setState(states.RUNNING, 1.2);
+      this.player.setState(states.RUNNING, 1);
     }
   }
 }
