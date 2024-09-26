@@ -11,6 +11,8 @@ window.addEventListener('load', () => {
 
   class Game{
     constructor(width, height){
+      //queste proprietà fanno riferimento alla larghezza e all'altezza del canvas
+      //sia in termini di pixel che in termini di unità di gioco (es. 100px = 100 unità di gioco)
       this.width = width;
       this.height = height;
       //questo servirà a tener conto del terreno di gioco
@@ -19,10 +21,12 @@ window.addEventListener('load', () => {
       this.maxSpeed = 3;
       this.background = new Background(this);
       this.player = new Player(this);
-      this.input = new InputHandler();
+      this.input = new InputHandler(this);
       this.enemies = [];
       this.enemyTimer = 0;
       this.enemyInterval = 1000;
+      this.debug = true;
+      this.score = 0;
     }
 
     draw(context){
@@ -43,12 +47,9 @@ window.addEventListener('load', () => {
       } else {
         this.enemyTimer += deltaTime;
       }
-      this.enemies.forEach(enemy => {
-        enemy.update(deltaTime);
-        if(enemy.markForDeletion){
-          this.enemies.splice(this.enemies.indexOf(enemy), 1);
-        }
-      })
+      this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
+      this.enemies.forEach(enemy => enemy.update(deltaTime));
+
     }
 
     addEnemy(){
