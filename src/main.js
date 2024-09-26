@@ -24,12 +24,15 @@ window.addEventListener('load', () => {
       this.player = new Player(this);
       this.input = new InputHandler(this);
       this.UI = new UI(this);
+      this.particles = [];
       this.enemies = [];
       this.enemyTimer = 0;
       this.enemyInterval = 1000;
       this.debug = true;
       this.score = 0;
       this.fontColor = 'black';
+      this.player.currentState = this.player.states[0];
+      this.player.currentState.enter();
     }
 
     draw(context){
@@ -37,6 +40,9 @@ window.addEventListener('load', () => {
       this.player.draw(context);
       this.enemies.forEach(enemy => {
         enemy.draw(context);
+      })
+      this.particles.forEach(particle => {
+        particle.draw(context);
       })
       this.UI.draw(context);
     }
@@ -54,18 +60,21 @@ window.addEventListener('load', () => {
       //filtro dei nemici per le collisioni col player
       this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
       this.enemies.forEach(enemy => enemy.update(deltaTime));
-
+      //gestione particles
+      this.particles.forEach((particle, index) => { 
+        particle.update(deltaTime);
+        if(particle.markedForDeletion) this.particles.splice(index, 1);
+      });
     }
 
     addEnemy(){
-      if(this.speed > 0 && Math.random() < 0.5){
+      if(Math.random() < 0.3 && this.speed > 0){
          this.enemies.push(new GroundEnemy(this));
-      }else if(this.speed > 0){
+      }else if(Math.random() < 0.2 && this.speed > 0){
         this.enemies.push(new ClimbingEnemy(this));
       } 
       this.enemies.push(new FlyingEnemy(this));
-    }
-    
+    }    
   }
   
   const game = new Game(canvas.width, canvas.height);
