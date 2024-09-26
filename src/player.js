@@ -31,6 +31,7 @@ export class Player {
   }
 
   update(input, deltaTime) {
+    this.checkCollision();
     this.currentState.handleInput(input);
     // horizontal movement
     if (this.x < 0) this.x = 0;
@@ -82,5 +83,21 @@ export class Player {
     this.currentState = this.states[state];
     this.game.speed = this.maxSpeed * speed;
     this.currentState.enter();
+  }
+  // creiamo un metodo per tener conto delle collisioni tra player ed enemy
+  checkCollision() {
+    this.game.enemies.forEach(enemy => {
+      //collisione c'è: coordinata 4 < coordinata 2 + dimensione 5 e coordinata 4 + dimensione 5 > coordinata 2 
+      if(enemy.x < this.x + this.width &&
+        enemy.x + enemy.width > this.x &&
+        enemy.y < this.y + this.height &&
+        enemy.y + enemy.height > this.y){
+          enemy.markedForDeletion = true;
+          this.game.score++;
+      //collisione NON c'è
+      }else{
+        //enemy.markedForDeletion = false;
+      }
+    })
   }
 }
