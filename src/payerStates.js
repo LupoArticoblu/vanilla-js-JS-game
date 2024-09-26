@@ -29,7 +29,9 @@ export class Sitting extends State {
   handleInput(input) {
     if (input.includes('ArrowLeft') || input.includes('ArrowRight')) {
       this.player.setState(states.RUNNING, 1);
-    }  
+    } else if (input.includes('Ctrl')) {
+      this.player.setState(states.ROLLING, 2);
+    } 
   }
 }
 
@@ -52,6 +54,8 @@ export class Running extends State{
       this.player.setState(states.SITTING, 0);
     }else if (input.includes('ArrowUp')){
       this.player.setState(states.JUMPING, 1);
+    }else if (input.includes('Ctrl')) {
+      this.player.setState(states.ROLLING, 2);
     }
   }  
 }
@@ -75,7 +79,8 @@ export class Jumping extends State{
     //quando è alla massima estensione di vy, il player cambia stato in falling
     if (this.player.vy > this.player.weight) {
       this.player.setState(states.FALLING, 1);
-      
+    }else if (input.includes('Ctrl')) {
+      this.player.setState(states.ROLLING, 2);
     }
   }
 }
@@ -97,6 +102,29 @@ export class Falling extends State{
     //perchè il player deve tornare ad essere in grado di muoversi
     if (this.player.onGround()) {
       this.player.setState(states.RUNNING, 1);
+    }
+  }
+}
+
+export class Rolling extends State{
+  constructor(player) {
+    super('ROLLING');
+    this.player = player;
+  }
+
+  enter() {
+    console.log('enter rolling');
+    
+    this.player.frameX = 0;
+    this.player.frameY = 6;
+    this.player.maxFrame = 6;
+  }
+
+  handleInput(input) {
+    if (!input.includes('Ctrl') && this.player.onGround()) {
+      this.player.setState(states.RUNNING, 1);
+    }else if (!input.includes('Ctrl') && !this.player.onGround()) {
+      this.player.setState(states.FALLING, 1);
     }
   }
 }
