@@ -85,5 +85,3 @@ window.addEventListener('load', () => {
   }
   animate(0);
 })
-
-console.log(GroundEnemy);
