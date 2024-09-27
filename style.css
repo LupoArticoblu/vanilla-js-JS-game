@@ -21,6 +21,7 @@
 #layer5,
 #enemyGround,
 #enemyFlying,
-#enemyClimb{
+#enemyClimb,
+#fire{
   display: none;
 }

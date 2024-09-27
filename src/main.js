@@ -65,6 +65,9 @@ window.addEventListener('load', () => {
         particle.update(deltaTime);
         if(particle.markedForDeletion) this.particles.splice(index, 1);
       });
+      if(this.particles.length > 50){
+        this.particles = this.particles.slice(0, 50);
+      }
     }
 
     addEnemy(){
