@@ -1,4 +1,4 @@
-import { Sitting, Running, Jumping, Falling, Rolling  } from './payerStates.js';
+import { Sitting, Running, Jumping, Falling, Rolling, Diving  } from './payerStates.js';
 
 export class Player {
   constructor(game) {
@@ -18,7 +18,7 @@ export class Player {
     this.maxSpeed = 6;
     this.vy = 0;
     this.weight = 1;
-    this.states =[new Sitting(this.game), new Running(this.game), new Jumping(this.game), new Falling(this.game), new Rolling(this.game)];
+    this.states =[new Sitting(this.game), new Running(this.game), new Jumping(this.game), new Falling(this.game), new Rolling(this.game), new Diving(this.game)];
   }
 
   draw(context) {
@@ -60,7 +60,11 @@ export class Player {
       this.vy = 0;
       this.y = this.game.height - this.height - this.game.groundMargin; // Correzione per la posizione del player sull'asse Y
     }
-
+    //limiti asse x
+    if (this.x < 0) this.x = 0;
+    if (this.x > this.game.width - this.width) this.x = this.game.width - this.width;
+    //limiti asse y
+    if (this.y > this.game.height - this.height - this.game.groundMargin) this.y = this.game.height - this.height - this.game.groundMargin;
     //sprite animation
     if(this.frameTimer > this.frameInterval){
       this.frameTimer = 0;
