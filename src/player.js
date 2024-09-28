@@ -1,4 +1,4 @@
-import { Sitting, Running, Jumping, Falling, Rolling, Diving  } from './payerStates.js';
+import { Sitting, Running, Jumping, Falling, Rolling, Diving, Hit  } from './payerStates.js';
 
 export class Player {
   constructor(game) {
@@ -18,7 +18,7 @@ export class Player {
     this.maxSpeed = 6;
     this.vy = 0;
     this.weight = 1;
-    this.states =[new Sitting(this.game), new Running(this.game), new Jumping(this.game), new Falling(this.game), new Rolling(this.game), new Diving(this.game)];
+    this.states =[new Sitting(this.game), new Running(this.game), new Jumping(this.game), new Falling(this.game), new Rolling(this.game), new Diving(this.game), new Hit(this.game)];
   }
 
   draw(context) {
@@ -95,10 +95,11 @@ export class Player {
         enemy.y < this.y + this.height &&
         enemy.y + enemy.height > this.y){
           enemy.markedForDeletion = true;
-          this.game.score++;
-      //collisione NON c'è
-      }else{
-        //enemy.markedForDeletion = false;
+          if(this.currentState === this.game.player.states[4] || this.currentState === this.game.player.states[5]){ 
+            this.game.score++;
+          }else{
+            this.setState(6, 0);
+          }
       }
     })
   }
