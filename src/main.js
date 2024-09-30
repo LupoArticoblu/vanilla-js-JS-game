@@ -32,6 +32,9 @@ window.addEventListener('load', () => {
       this.debug = false;
       this.score = 0;
       this.fontColor = 'black';
+      this.time = 0;
+      this.maxTime = 2000;
+      this.gameOver = false;
       this.player.currentState = this.player.states[0];
       this.player.currentState.enter();
     }
@@ -52,6 +55,8 @@ window.addEventListener('load', () => {
     }
 
     update(deltaTime){
+      this.time += deltaTime;
+      if(this.time > this.maxTime) this.gameOver = true;
       this.background.update();
       this.player.update(this.input.keys, deltaTime);
       //gestione enemies
@@ -101,7 +106,7 @@ window.addEventListener('load', () => {
     game.draw(ctx);
     game.update(deltaTime);
     //requestAnimationFrame() ha 2 funzioni speciali: regola automaticamente la frequenza di aggiornamento dello schermo e genera automaticamente un valore di timestamp e lo passa agli argomenti della funzione richiesta, tipo "(animate)",il nome della variabile passata come argomento in animate lo chiameremo timeStamp. Quindi la variabile timeStamp sarà richiamata e autogenerata da questa funzione ogni volta che la animazione richiesta esegue un nuovo frame.
-    requestAnimationFrame(animate);
+    if(!game.gameOver) requestAnimationFrame(animate);
   }
   animate(0);
 })
