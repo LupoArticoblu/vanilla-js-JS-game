@@ -22,6 +22,7 @@
 #enemyGround,
 #enemyFlying,
 #enemyClimb,
-#fire{
+#fire,
+#boom{
   display: none;
 }

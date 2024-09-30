@@ -1,5 +1,5 @@
 import { Sitting, Running, Jumping, Falling, Rolling, Diving, Hit  } from './payerStates.js';
-
+import { CollisionAnimate } from './collisionAnimate.js';
 export class Player {
   constructor(game) {
     this.game = game;
@@ -77,6 +77,9 @@ export class Player {
       this.frameTimer += deltaTime;
     }
   }
+ 
+  //========== METODI CUSTOM ==========
+ 
   onGround() {
     return this.y >= this.game.height - this.height - this.game.groundMargin;
   }
@@ -95,6 +98,7 @@ export class Player {
         enemy.y < this.y + this.height &&
         enemy.y + enemy.height > this.y){
           enemy.markedForDeletion = true;
+          this.game.collisions.push(new CollisionAnimate(this.game, enemy.x + enemy.width * 0.5, enemy.y + enemy.height * 0.5));
           if(this.currentState === this.game.player.states[4] || this.currentState === this.game.player.states[5]){ 
             this.game.score++;
           }else{
