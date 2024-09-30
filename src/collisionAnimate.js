@@ -14,7 +14,7 @@ export class CollisionAnimate {
     this.height = this.spriteHeight * this.sizeModifier;
     // 2. calcoliamo la coordinata x e y della collisione in base alla posizione del player e alle dimensioni della collisione
     this.x = x - this.width * 0.5;
-    this.y = y - this.width * 0.5;
+    this.y = y - this.height * 0.5;
     // se invertissimo l'ordine, la collisione verrebbe disegnata nella posizione sbagliata e non sarebbe visibile 
     this.markedForDeletion = false;
     this.fps = 15;

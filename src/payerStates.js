@@ -30,7 +30,7 @@ export class Sitting extends State {
   handleInput(input) {
     if (input.includes('ArrowLeft') || input.includes('ArrowRight')) {
       this.game.player.setState(states.RUNNING, 1);
-    } else if (input.includes('Enter')) {
+    } else if (input.includes('Enter') && !input.includes('ArrowDown')) {
       this.game.player.setState(states.ROLLING, 2);
     } 
   }
@@ -130,9 +130,9 @@ export class Rolling extends State{
       this.game.player.setState(states.FALLING, 1);
     }else if (input.includes('Enter') && input.includes('ArrowUp') && this.game.player.onGround()) {
       this.game.player.vy -= 25; 
-    }else if(input.includes('ArrowDown')) {
+    }else if(input.includes('ArrowDown') && this.game.player.onGround()) {
       this.game.player.setState(states.DIVING, 0);
-    }
+    } 
   }
 }
 
