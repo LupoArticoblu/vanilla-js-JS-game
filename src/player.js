@@ -1,6 +1,5 @@
 import { Sitting, Running, Jumping, Falling, Rolling, Diving, Hit  } from './payerStates.js';
 import { CollisionAnimate } from './collisionAnimate.js';
-import { UI } from './UI.js';
 export class Player {
   constructor(game) {
     this.game = game;
@@ -107,7 +106,8 @@ export class Player {
             this.game.lives--;
             if(this.game.lives <= 0){
               this.game.gameOver = true;
-              
+              this.game.UI.updateGameover(this.game.ctx);
+              console.log('gameover chiamato');
             }
           }
       }

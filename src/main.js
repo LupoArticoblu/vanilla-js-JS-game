@@ -97,7 +97,7 @@ window.addEventListener('load', () => {
     }    
   }
   
-  const game = new Game(canvas.width, canvas.height);
+  const game = new Game(canvas.width, canvas.height, ctx);
   
   //variabile di supporto: terrà conto del valore del timestamp dal precedente animation frame
   let lastTime = 0;
