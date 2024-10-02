@@ -23,6 +23,7 @@
 #enemyFlying,
 #enemyClimb,
 #fire,
-#boom{
+#boom,
+#lives{
   display: none;
 }

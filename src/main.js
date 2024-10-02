@@ -35,6 +35,7 @@ window.addEventListener('load', () => {
       this.time = 0;
       this.maxTime = 15020;
       this.gameOver = false;
+      this.lives = 5;
       this.win = false;
       this.player.currentState = this.player.states[0];
       this.player.currentState.enter();
