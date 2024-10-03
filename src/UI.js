@@ -18,8 +18,10 @@ export class UI {
     context.textBaseline = 'top';
     context.fillStyle = this.game.fontColor;
     //vite
-    for (let i = 0; i < this.game.lives; i++) {
-      context.drawImage(this.livesImage, 10 + i * 30, 10, 25, 25);
+    if (this.game.lives > 0) {
+      for (let i = 0; i < this.game.lives; i++) {
+        context.drawImage(this.livesImage, 10 + i * 30, 10, 25, 25);
+      }
     }
     //punteggio
     context.fillText('Score: ' + this.game.score, 20, 40);
@@ -28,6 +30,7 @@ export class UI {
     context.fillText('Time: ' + Math.floor(this.game.time / 100), 20, 70);
     context.restore();
   }
+
 
   updateGameover(context) {
     if(this.game.score >= 10) {

@@ -97,7 +97,7 @@ window.addEventListener('load', () => {
     }    
   }
   
-  const game = new Game(canvas.width, canvas.height, ctx);
+  const game = new Game(canvas.width, canvas.height);
   
   //variabile di supporto: terrà conto del valore del timestamp dal precedente animation frame
   let lastTime = 0;
@@ -111,6 +111,10 @@ window.addEventListener('load', () => {
     game.update(deltaTime);
     //requestAnimationFrame() ha 2 funzioni speciali: regola automaticamente la frequenza di aggiornamento dello schermo e genera automaticamente un valore di timestamp e lo passa agli argomenti della funzione richiesta, tipo "(animate)",il nome della variabile passata come argomento in animate lo chiameremo timeStamp. Quindi la variabile timeStamp sarà richiamata e autogenerata da questa funzione ogni volta che la animazione richiesta esegue un nuovo frame.
     if(!game.gameOver) requestAnimationFrame(animate);
+    else {
+      game.draw(ctx);
+      game.UI.updateGameover(ctx);
+    }
   
   }
   animate(0);

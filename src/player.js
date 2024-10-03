@@ -91,6 +91,7 @@ export class Player {
   }
   // creiamo un metodo per tener conto delle collisioni tra player ed enemy
   checkCollision() {
+    if(this.game.gameOver) return;
     this.game.enemies.forEach(enemy => {
       //collisione c'è: coordinata 4 < coordinata 2 + dimensione 5 e coordinata 4 + dimensione 5 > coordinata 2 
       if(enemy.x < this.x + this.width &&
@@ -105,10 +106,9 @@ export class Player {
             this.setState(6, 0);
             this.game.lives--;
             if(this.game.lives <= 0){
+              this.game.lives = 0;
               this.game.gameOver = true;
-              this.game.UI.updateGameover(this.game.ctx);
-              console.log('gameover chiamato');
-            }
+            } 
           }
       }
     })
