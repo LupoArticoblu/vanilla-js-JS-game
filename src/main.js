@@ -27,6 +27,7 @@ window.addEventListener('load', () => {
       this.particles = [];
       this.enemies = [];
       this.collisions = [];
+      this.floatingMessages = [];
       this.enemyTimer = 0;
       this.enemyInterval = 1000;
       this.debug = false;
@@ -59,19 +60,24 @@ window.addEventListener('load', () => {
       //filtro dei nemici per le collisioni col player
       this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
       this.enemies.forEach(enemy => enemy.update(deltaTime));
+      //gestione floating messages
+      this.floatingMessages = this.floatingMessages.filter(message => !message.markedForDeletion)
+      this.floatingMessages.forEach(message => {
+        message.update();
+      })
       //gestione particles
-      this.particles.forEach((particle, index) => { 
-        particle.update(deltaTime);
-        if(particle.markedForDeletion) this.particles.splice(index, 1);
+      this.particles = this.particles.filter(particle => !particle.markedForDeletion);
+      this.particles.forEach(particle => {
+        particle.update();
       });
       if(this.particles.length > 50){
         this.particles = this.particles.slice(0, 50);
       }
       //gestione animazione collisioni
-      this.collisions.forEach((collision, index) => {
+      this.collisions = this.collisions.filter(collision => !collision.markedForDeletion);
+      this.collisions.forEach(collision => {
         collision.update(deltaTime);
-        if(collision.markedForDeletion) this.collisions.splice(index, 1)
-      }); 
+      })
     }
     draw(context){
       this.background.draw(context);
@@ -84,6 +90,9 @@ window.addEventListener('load', () => {
       })
       this.collisions.forEach(collision => {
         collision.draw(context);
+      })
+      this.floatingMessages.forEach(message => {
+        message.draw(context);
       })
       this.UI.draw(context);
     }
