@@ -20,6 +20,7 @@ export class Player {
     this.vy = 0;
     this.weight = 1;
     this.states =[new Sitting(this.game), new Running(this.game), new Jumping(this.game), new Falling(this.game), new Rolling(this.game), new Diving(this.game), new Hit(this.game)];
+    this.currentState = null;
   }
 
   draw(context) {
@@ -102,7 +103,8 @@ export class Player {
           enemy.markedForDeletion = true;
           this.game.collisions.push(new CollisionAnimate(this.game, enemy.x + enemy.width * 0.5, enemy.y + enemy.height * 0.5));
           if(this.currentState === this.game.player.states[4] || this.currentState === this.game.player.states[5]){ 
-            this.game.score++;
+            //aggiungiamo 1 punto dopo quasi un secondo
+            setTimeout(() => this.game.score++, 800);
             this.game.floatingMessages.push(new FloatingMessage('+1', enemy.x, enemy.y, 106, 66));
           }else{
             this.setState(6, 0);
