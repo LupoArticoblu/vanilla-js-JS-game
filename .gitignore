@@ -1,0 +1,11 @@
+# Ignora la cartella node_modules
+node_modules/
+
+# Ignora il file di log
+npm-debug.log
+
+# Ignora la cartella dist (se non vuoi includerla nel repository)
+dist/
+
+# Ignora i file di ambiente
+.env
