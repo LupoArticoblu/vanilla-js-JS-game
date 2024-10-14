@@ -6,4 +6,5 @@ Tasto Azione: ctrl, per attaccare.</h1>
 <br>
 <h3>Project taken from a yt tutorial that led me to learn the basics of using fps and collisions</h3> 
 <h1>HOw TO PLAY:
-Directional arrows: ˄, to jump ˅, to sit ˃, to move forward ˂, to move backward</h1>
+Directional arrows: ˄, to jump ˅, to sit ˃, to move forward ˂, to move backward.
+Action: ctrl, to roll.</h1>
